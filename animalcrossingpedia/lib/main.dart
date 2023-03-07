@@ -1,6 +1,7 @@
-// import 'package:animalcrossingpedia/provider/api.dart';
+import 'package:animalcrossingpedia/widgets/home/profile_card.dart';
 import 'package:flutter/material.dart';
-import 'provider/api.dart' as api;
+import './widgets/home/animal_crossing_homepage.dart';
+import '../../provider/api.dart' as api;
 
 void main() => runApp(MyApp());
 
@@ -14,11 +15,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
         colorScheme: Theme.of(context).colorScheme.copyWith(
-            primary: Colors.amber,
-            secondary: Color.fromARGB(255, 208, 196, 196),
-            tertiary: Colors.brown.shade300),
+            primary: Color.fromARGB(255, 146, 124, 56),
+            secondary: Color.fromARGB(255, 37, 119, 34),
+            tertiary: Color.fromARGB(172, 226, 202, 202)),
       ),
       home: AnimalCrossing(),
+      routes: {
+        ProfileCard.routeName: (ctx) => ProfileCard(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }
@@ -54,83 +58,41 @@ class AnimalCrossingPedia extends State<AnimalCrossing> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        title: Center(
+          child: Image.asset('./assets/logo.png', 
+            width: 100, 
+            height: 100,
+          ),
+        ),
+      ),
+      drawer: Drawer(),
       // container che contiene tutta l'applicazione
       body: Container(
-        color: Theme.of(context).colorScheme.secondary,
+        color: Theme.of(context).colorScheme.tertiary,
         padding: const EdgeInsets.all(10),
         width: double.infinity,
         // lista delle carte contenente le informazioni
-        child: ListView.builder(
-          itemCount: villagers.length,
-          itemBuilder: (context, index) {
-            // padding per
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 3),
-              // costruzione della singola carta con elevazione 5, colore di background preso dall'api
-              child: Card(
-                elevation: 5,
-                color: Color(villagers[index]['colore_carta']),
-                // padding esterno (la distanza fra i margini dello schermo e le schede)
-                child: Padding(
-                  padding:
-                      const EdgeInsets.only(right: 10, bottom: 10, top: 10),
-                  // Sizebox definisce la grandezza della row
-                  child: SizedBox(
-                    height: 65,
-                    // questa è la riga all'interno della carta, che conterrà le varie informazioni
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // l'id
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Row(
-                            children: [
-                              Text(
-                                '#${villagers[index]['id']}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              CircleAvatar(
-                                radius: 50,
-                                child: Image.network(
-                                  villagers[index]['img_icona'],
-                                  width: 40,
-                                  height: 40,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        // l'avatar con uno stile da immagine del profilo
-                        // altre informazioni come nome e il giorno di nascita incolonnate
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  villagers[index]['nome'],
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(width: 15),
-                                Text(villagers[index]['birthday-string']),
-                              ],
-                            ),
-                          ],
-                        ),
-                        // infine un icona per indicare che l'oggetto è cliccabile
-                        const Icon(Icons.arrow_forward_ios_rounded)
-                      ],
-                    ),
-                  ),
-                ),
+        child: AnimalCrossingHomePage(villagersList: villagers),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+              color: Colors.white,
+            ),
+            label: 'casetta',
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.all_out,
+                color: Colors.white,
               ),
-            );
-          },
-        ),
+              label: 'pesciolino'),
+        ],
       ),
     );
   }

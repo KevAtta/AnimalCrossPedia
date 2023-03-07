@@ -8,7 +8,7 @@ const baseUrl = 'https://acnhapi.com/v1/villagers/';
 Future<List<dynamic>> fetchVillagers() async {
   var villagerList = [];
 
-  int _getColorFromHex(String hexColor) {
+  int getColorFromHex(String hexColor) {
     hexColor = hexColor.toUpperCase().replaceAll("#", "");
     if (hexColor.length == 6) {
       hexColor = "FF" + hexColor;
@@ -32,7 +32,7 @@ Future<List<dynamic>> fetchVillagers() async {
               'frase': e['saying'],
               'birthday': e['birthday'],
               'birthday-string': e['birthday-string'],
-              'colore_carta': _getColorFromHex(e['bubble-color']),
+              'colore_carta': getColorFromHex(e['bubble-color']),
               'specie': e['species']
             }))
         .toList();
