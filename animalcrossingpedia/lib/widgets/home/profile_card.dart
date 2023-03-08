@@ -107,7 +107,7 @@ class ProfileCardState extends State<ProfileCard> {
                         children: [
                           Container(
                             width: width * 0.3,
-                            child: Text(
+                            child: const Text(
                               'Sesso:',
                               style: TextStyle(
                                   color: Colors.blueGrey,
@@ -118,8 +118,8 @@ class ProfileCardState extends State<ProfileCard> {
                           Container(
                             child: Text(
                               villager['genere'],
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 17),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 17),
                             ),
                           ),
                         ],
@@ -130,7 +130,7 @@ class ProfileCardState extends State<ProfileCard> {
                         children: [
                           Container(
                             width: width * 0.3,
-                            child: Text(
+                            child: const Text(
                               'Hobby:',
                               style: TextStyle(
                                   color: Colors.blueGrey,
@@ -141,8 +141,8 @@ class ProfileCardState extends State<ProfileCard> {
                           Container(
                             child: Text(
                               villager['hobby'],
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 17),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 17),
                             ),
                           ),
                         ],
@@ -153,7 +153,7 @@ class ProfileCardState extends State<ProfileCard> {
                         children: [
                           Container(
                             width: width * 0.3,
-                            child: Text(
+                            child: const Text(
                               'Compleanno:',
                               style: TextStyle(
                                   color: Colors.blueGrey,
@@ -164,8 +164,8 @@ class ProfileCardState extends State<ProfileCard> {
                           Container(
                             child: Text(
                               villager['birthday-string'],
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 17),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 17),
                             ),
                           ),
                         ],
@@ -176,7 +176,7 @@ class ProfileCardState extends State<ProfileCard> {
                         children: [
                           Container(
                             width: width * 0.3,
-                            child: Text(
+                            child: const Text(
                               'Specie:',
                               style: TextStyle(
                                   color: Colors.blueGrey,
@@ -187,8 +187,8 @@ class ProfileCardState extends State<ProfileCard> {
                           Container(
                             child: Text(
                               villager['specie'],
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 17),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 17),
                             ),
                           ),
                         ],
@@ -225,74 +225,45 @@ class ProfileCardState extends State<ProfileCard> {
           )
         ],
       ),
-       bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         backgroundColor: Theme.of(context).colorScheme.primary,
-        items: [
+        items: const [
           BottomNavigationBarItem(
+            label: 'Casetta',
             icon: Icon(
               Icons.home,
-              color: Colors.white,
+              color: Colors.green,
             ),
-            label: 'casetta',
           ),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.all_out,
-                color: Colors.white,
+                Icons.pets,
+                color: Colors.lightGreen,
               ),
-              label: 'pesciolino'),
+              label: 'Pesci e Insetti'),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.music_note,
+                color: Colors.lightGreen,
+              ),
+              label: 'Musiche'),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.crop_square,
+                color: Colors.lightGreen,
+              ),
+              label: 'Dipinti'),
         ],
+        selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.lightGreen,
+        selectedLabelStyle: const TextStyle(
+          color: Colors.green,
+        ),
+        unselectedLabelStyle: const TextStyle(
+          color: Colors.lightGreen,
+        ),
       ),
     );
-
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     backgroundColor: Theme.of(context).colorScheme.secondary,
-    //     title: Center(
-    //       child: Image.asset(
-    //         './assets/logo.png',
-    //         width: 100,
-    //         height: 100,
-    //       ),
-    //     ),
-    //   ),
-    //   body: Stack(
-    //     alignment: const Alignment(0.6, 0.6),
-    //     children: [
-    //       Container(
-    //         height: MediaQuery.of(context).size.height / 3,
-    //         color: Color(villager['colore_carta']),
-    //       ),
-    //       Positioned(
-    //         top: MediaQuery.of(context).size.height / 6,
-    //         left: 0,
-    //         right: 0,
-    //         child: Image.network(
-    //           villager['img_profilo'],
-    //           height: MediaQuery.of(context).size.height / 3,
-    //           width: MediaQuery.of(context).size.width,
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    //   bottomNavigationBar: BottomNavigationBar(
-    //     backgroundColor: Theme.of(context).colorScheme.primary,
-    //     items: [
-    //       BottomNavigationBarItem(
-    //         icon: Icon(
-    //           Icons.home,
-    //           color: Colors.white,
-    //         ),
-    //         label: 'casetta',
-    //       ),
-    //       BottomNavigationBarItem(
-    //           icon: Icon(
-    //             Icons.all_out,
-    //             color: Colors.white,
-    //           ),
-    //           label: 'pesciolino'),
-    //     ],
-    //   ),
-    // );
   }
 }

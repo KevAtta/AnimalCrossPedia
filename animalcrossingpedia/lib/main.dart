@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
         colorScheme: Theme.of(context).colorScheme.copyWith(
-            primary: Color.fromARGB(255, 146, 124, 56),
+            primary: Colors.brown,
             secondary: Color.fromARGB(255, 37, 119, 34),
             tertiary: Color.fromARGB(172, 226, 202, 202)),
       ),
@@ -61,8 +61,9 @@ class AnimalCrossingPedia extends State<AnimalCrossing> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.secondary,
         title: Center(
-          child: Image.asset('./assets/logo2.png', 
-            width: 100, 
+          child: Image.asset(
+            './assets/logo2.png',
+            width: 100,
             height: 100,
           ),
         ),
@@ -77,22 +78,43 @@ class AnimalCrossingPedia extends State<AnimalCrossing> {
         child: AnimalCrossingHomePage(villagersList: villagers),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         backgroundColor: Theme.of(context).colorScheme.primary,
-        items: [
+        items: const [
           BottomNavigationBarItem(
+            label: 'Casetta',
             icon: Icon(
               Icons.home,
-              color: Colors.white,
+              color: Colors.green,
             ),
-            label: 'casetta',
           ),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.all_out,
-                color: Colors.white,
+                Icons.pets,
+                color: Colors.lightGreen,
               ),
-              label: 'pesciolino'),
+              label: 'Pesci e Insetti'),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.music_note,
+                color: Colors.lightGreen,
+              ),
+              label: 'Musiche'),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.crop_square,
+                color: Colors.lightGreen,
+              ),
+              label: 'Dipinti'),
         ],
+        selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.lightGreen,
+        selectedLabelStyle: const TextStyle(
+          color: Colors.green,
+        ),
+        unselectedLabelStyle: const TextStyle(
+          color: Colors.lightGreen,
+        ),
       ),
     );
   }
