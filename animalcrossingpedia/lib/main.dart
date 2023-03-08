@@ -61,7 +61,7 @@ class AnimalCrossingPedia extends State<AnimalCrossing> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.secondary,
         title: Center(
-          child: Image.asset('./assets/logo.png', 
+          child: Image.asset('./assets/logo2.png', 
             width: 100, 
             height: 100,
           ),
