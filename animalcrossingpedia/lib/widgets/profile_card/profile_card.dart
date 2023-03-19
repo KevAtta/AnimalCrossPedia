@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../provider/api.dart' as api;
 
 class ProfileCard extends StatefulWidget {
   static const routeName = '/profile-villager';
@@ -8,12 +10,12 @@ class ProfileCard extends StatefulWidget {
 }
 
 class ProfileCardState extends State<ProfileCard> {
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    final villager =
-        ModalRoute.of(context)!.settings.arguments as Map<dynamic, dynamic>;
+    final villager = ModalRoute.of(context)!.settings.arguments as Map<dynamic, dynamic>;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -222,7 +224,19 @@ class ProfileCardState extends State<ProfileCard> {
                     ),
                   )),
             ),
-          )
+          ),
+          Positioned(
+            right: 10,
+            top: 10,
+            child: Consumer<api.GetData>(
+              builder: (ctx, villagerFav, child) =>
+                IconButton(
+                icon: villager['favoriti'] ? const Icon(Icons.star) : const Icon(Icons.star_border), 
+                color: Colors.amber,
+                onPressed: () => { villagerFav.addVillagerToFavorite(villager['id']) },
+              ),
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

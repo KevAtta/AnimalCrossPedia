@@ -1,7 +1,10 @@
-import 'package:animalcrossingpedia/widgets/home/profile_card.dart';
+import 'package:animalcrossingpedia/widgets/profile_card/profile_card.dart';
 import 'package:flutter/material.dart';
-import './widgets/home/animal_crossing_homepage.dart';
+import 'widgets/bugs_and_fish/fish.dart';
+import 'widgets/bugs_and_fish/fish_bugs_menu.dart';
+import 'widgets/home/homepage.dart';
 import '../../provider/api.dart' as api;
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,21 +13,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Animal crossing',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-        colorScheme: Theme.of(context).colorScheme.copyWith(
-            primary: Colors.brown,
-            secondary: Color.fromARGB(255, 37, 119, 34),
-            tertiary: Color.fromARGB(172, 226, 202, 202)),
-      ),
-      home: AnimalCrossing(),
-      routes: {
-        ProfileCard.routeName: (ctx) => ProfileCard(),
-      },
-      debugShowCheckedModeBanner: false,
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<api.GetData>(create: (_) => api.GetData())
+        ],
+        child: MaterialApp(
+          title: 'Animal crossing',
+          theme: ThemeData(
+            primarySwatch: Colors.amber,
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+                primary: Colors.brown,
+                secondary: Color.fromARGB(255, 37, 119, 34),
+                tertiary: Color.fromARGB(172, 226, 202, 202)),
+          ),
+          home: AnimalCrossing(),
+          routes: {
+            ProfileCard.routeName: (ctx) => ProfileCard(),
+            Fish.routeName: (ctx) => Fish(),
+          },
+          debugShowCheckedModeBanner: false,
+        ));
   }
 }
 
@@ -34,29 +42,31 @@ class AnimalCrossing extends StatefulWidget {
 }
 
 class AnimalCrossingPedia extends State<AnimalCrossing> {
-  List<dynamic> villagers = [];
+  int _selectedIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    loadVillagers();
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
-  Future<void> loadVillagers() async {
-    // try-catch per l'ottenimento delle carte dalla chiamata api
-    try {
-      final List<dynamic> listVillagers = await api.fetchVillagers();
-      setState(() {
-        villagers = listVillagers;
-      });
-    } catch (e) {
-      // Handle error
-      print(e.toString());
-    }
-  }
+  final List<Widget> _widgetOptions = <Widget>[
+    Container(
+      color: Color.fromARGB(172, 226, 202, 202),
+      padding: const EdgeInsets.all(10),
+      width: double.infinity,
+      // lista delle carte contenente le informazioni
+      child: HomePage(),
+    ),
+    const FishBugsMenu(),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    final themeContext = context;
+    final villagers = Provider.of<api.GetData>(context);
+    villagers.fetchVillagers();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -68,15 +78,8 @@ class AnimalCrossingPedia extends State<AnimalCrossing> {
           ),
         ),
       ),
-      drawer: Drawer(),
       // container che contiene tutta l'applicazione
-      body: Container(
-        color: Theme.of(context).colorScheme.tertiary,
-        padding: const EdgeInsets.all(10),
-        width: double.infinity,
-        // lista delle carte contenente le informazioni
-        child: AnimalCrossingHomePage(villagersList: villagers),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -102,11 +105,13 @@ class AnimalCrossingPedia extends State<AnimalCrossing> {
               label: 'Musiche'),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.crop_square,
+                Icons.star,
                 color: Colors.lightGreen,
               ),
-              label: 'Dipinti'),
+              label: 'Preferiti'),
         ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
         selectedItemColor: Colors.green,
         unselectedItemColor: Colors.lightGreen,
         selectedLabelStyle: const TextStyle(
