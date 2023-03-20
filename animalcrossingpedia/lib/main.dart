@@ -1,9 +1,11 @@
+import 'package:animalcrossingpedia/provider/get_fish.dart';
+import 'package:animalcrossingpedia/widgets/favorite/favorite_villager.dart';
 import 'package:animalcrossingpedia/widgets/profile_card/profile_card.dart';
 import 'package:flutter/material.dart';
 import 'widgets/bugs_and_fish/fish.dart';
 import 'widgets/bugs_and_fish/fish_bugs_menu.dart';
 import 'widgets/home/homepage.dart';
-import '../../provider/api.dart' as api;
+import 'provider/get_villagers.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
@@ -15,7 +17,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider<api.GetData>(create: (_) => api.GetData())
+          ChangeNotifierProvider<GetDataVillagers>(create: (_) => GetDataVillagers()),
+          ChangeNotifierProvider<GetDataFish>(create: (_) => GetDataFish()),
         ],
         child: MaterialApp(
           title: 'Animal crossing',
@@ -23,13 +26,14 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.amber,
             colorScheme: Theme.of(context).colorScheme.copyWith(
                 primary: Colors.brown,
-                secondary: Color.fromARGB(255, 37, 119, 34),
-                tertiary: Color.fromARGB(172, 226, 202, 202)),
+                secondary: const Color.fromARGB(255, 37, 119, 34),
+                tertiary: const Color.fromARGB(172, 226, 202, 202)),
           ),
-          home: AnimalCrossing(),
+          home: const AnimalCrossing(),
           routes: {
             ProfileCard.routeName: (ctx) => ProfileCard(),
-            Fish.routeName: (ctx) => Fish(),
+            Fish.routeName: (ctx) => const Fish(),
+            FavoriteVillagers.routeName: (ctx) => const FavoriteVillagers(),
           },
           debugShowCheckedModeBanner: false,
         ));
@@ -37,6 +41,8 @@ class MyApp extends StatelessWidget {
 }
 
 class AnimalCrossing extends StatefulWidget {
+  const AnimalCrossing({super.key});
+
   @override
   AnimalCrossingPedia createState() => AnimalCrossingPedia();
 }
@@ -52,20 +58,22 @@ class AnimalCrossingPedia extends State<AnimalCrossing> {
 
   final List<Widget> _widgetOptions = <Widget>[
     Container(
-      color: Color.fromARGB(172, 226, 202, 202),
+      color: const Color.fromARGB(172, 226, 202, 202),
       padding: const EdgeInsets.all(10),
       width: double.infinity,
-      // lista delle carte contenente le informazioni
       child: HomePage(),
     ),
     const FishBugsMenu(),
+    const Text('ciao'),
+    const FavoriteVillagers(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    final themeContext = context;
-    final villagers = Provider.of<api.GetData>(context);
+    final villagers = Provider.of<GetDataVillagers>(context);
+    final fishs = Provider.of<GetDataFish>(context);
     villagers.fetchVillagers();
+    fishs.fetchFish();
 
     return Scaffold(
       appBar: AppBar(
@@ -78,14 +86,13 @@ class AnimalCrossingPedia extends State<AnimalCrossing> {
           ),
         ),
       ),
-      // container che contiene tutta l'applicazione
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Theme.of(context).colorScheme.primary,
         items: const [
           BottomNavigationBarItem(
-            label: 'Casetta',
+            label: 'Abitanti',
             icon: Icon(
               Icons.home,
               color: Colors.green,

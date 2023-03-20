@@ -4,7 +4,7 @@ class HomePageContent extends StatefulWidget {
   final List<dynamic> villagersList;
   final int index;
 
-  HomePageContent({required this.villagersList, required this.index});
+  const HomePageContent({super.key, required this.villagersList, required this.index});
 
   @override
   State<HomePageContent> createState() => HomePageContentState();

@@ -2,8 +2,7 @@ import 'package:animalcrossingpedia/widgets/home/homepage_content.dart';
 import 'package:animalcrossingpedia/widgets/profile_card/profile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../provider/api.dart';
+import '../../provider/get_villagers.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,7 +12,7 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final villagers = Provider.of<GetData>(context);
+    final villagers = Provider.of<GetDataVillagers>(context);
     final villagerList = villagers.villagerList;
 
     return ListView.builder(

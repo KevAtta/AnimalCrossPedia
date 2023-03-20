@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../provider/api.dart' as api;
+import '../../provider/get_villagers.dart';
 
 class ProfileCard extends StatefulWidget {
   static const routeName = '/profile-villager';
@@ -228,7 +228,7 @@ class ProfileCardState extends State<ProfileCard> {
           Positioned(
             right: 10,
             top: 10,
-            child: Consumer<api.GetData>(
+            child: Consumer<GetDataVillagers>(
               builder: (ctx, villagerFav, child) =>
                 IconButton(
                 icon: villager['favoriti'] ? const Icon(Icons.star) : const Icon(Icons.star_border), 
@@ -238,45 +238,6 @@ class ProfileCardState extends State<ProfileCard> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        items: const [
-          BottomNavigationBarItem(
-            label: 'Casetta',
-            icon: Icon(
-              Icons.home,
-              color: Colors.green,
-            ),
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.pets,
-                color: Colors.lightGreen,
-              ),
-              label: 'Pesci e Insetti'),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.music_note,
-                color: Colors.lightGreen,
-              ),
-              label: 'Musiche'),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.crop_square,
-                color: Colors.lightGreen,
-              ),
-              label: 'Dipinti'),
-        ],
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.lightGreen,
-        selectedLabelStyle: const TextStyle(
-          color: Colors.green,
-        ),
-        unselectedLabelStyle: const TextStyle(
-          color: Colors.lightGreen,
-        ),
       ),
     );
   }

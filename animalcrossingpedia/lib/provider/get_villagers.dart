@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class GetData extends ChangeNotifier {
-  // constante che contiene l'url per la chiamata all'api
+class GetDataVillagers extends ChangeNotifier {
   final baseUrl = 'https://acnhapi.com/v1/villagers/';
   final _villagerList = [];
+  final _favoriteVillagers = [];
   
   Future<void> fetchVillagers() async {
 
@@ -46,26 +46,26 @@ class GetData extends ChangeNotifier {
     }
   }
 
-  // creo una copia della lista di partenza
   List<dynamic> get villagerList => [..._villagerList];
 
-  // creo un array che contterrà solo quelli con il campo favoriti a true
-  List<dynamic> get favoriteVillagers { return _villagerList.where((element) => element['favoriti'] == true).toList(); } 
+  List<dynamic> get favoriteVillagers => [..._favoriteVillagers]; 
 
   void addVillagerToFavorite(int villagerId) {
-    var idVillagerSelected = _villagerList.indexWhere((element) => element['id'] == villagerId);
+    // prendo l'indice del villager selezionato
+    var indexVillagerSelected = _villagerList.indexWhere((element) => element['id'] == villagerId);
     
-    if(idVillagerSelected >= 0){
-      _villagerList[idVillagerSelected]['favoriti'] = true;
-
-      // Aggiungiamo il villager alla lista dei preferiti, se non è già presente
-      if (!favoriteVillagers.contains(_villagerList[villagerId])) {
-        favoriteVillagers.add(_villagerList[villagerId]);
+    // se l'indice esiste, quindi è maggiore di 0
+    if(indexVillagerSelected >= 0){
+      // se il campo 'favoriti' del villager è true
+      if(_villagerList[indexVillagerSelected]['favoriti']){
+        _villagerList[indexVillagerSelected]['favoriti'] = false;
+         _favoriteVillagers.remove(_villagerList[indexVillagerSelected]);
+      }else{
+        _villagerList[indexVillagerSelected]['favoriti'] = true;
+        _favoriteVillagers.add(_villagerList[indexVillagerSelected]);
       }
     }
 
-    // Notifichiamo tutti i listener (ovvero, i widget che dipendono da questa classe)
-    // che i dati sono stati aggiornati
     notifyListeners();
   }
 }
