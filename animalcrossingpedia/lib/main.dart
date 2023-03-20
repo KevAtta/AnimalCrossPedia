@@ -1,4 +1,6 @@
+import 'package:animalcrossingpedia/provider/get_bugs.dart';
 import 'package:animalcrossingpedia/provider/get_fish.dart';
+import 'package:animalcrossingpedia/widgets/bugs_and_fish/bugs.dart';
 import 'package:animalcrossingpedia/widgets/favorite/favorite_villager.dart';
 import 'package:animalcrossingpedia/widgets/profile_card/profile_card.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider<GetDataVillagers>(create: (_) => GetDataVillagers()),
           ChangeNotifierProvider<GetDataFish>(create: (_) => GetDataFish()),
+          ChangeNotifierProvider<GetDataBugs>(create: (_) => GetDataBugs()),
         ],
         child: MaterialApp(
           title: 'Animal crossing',
@@ -34,6 +37,7 @@ class MyApp extends StatelessWidget {
             ProfileCard.routeName: (ctx) => ProfileCard(),
             Fish.routeName: (ctx) => const Fish(),
             FavoriteVillagers.routeName: (ctx) => const FavoriteVillagers(),
+            Bugs.routeName: (ctx) => const Bugs(),
           },
           debugShowCheckedModeBanner: false,
         ));
@@ -64,16 +68,19 @@ class AnimalCrossingPedia extends State<AnimalCrossing> {
       child: HomePage(),
     ),
     const FishBugsMenu(),
-    const Text('ciao'),
+    const Text('data'),
     const FavoriteVillagers(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    final villagers = Provider.of<GetDataVillagers>(context);
-    final fishs = Provider.of<GetDataFish>(context);
+    final villagers = Provider.of<GetDataVillagers>(context, listen: false);
+    final fishs = Provider.of<GetDataFish>(context, listen: false);
+    final bugs = Provider.of<GetDataBugs>(context, listen: false);
     villagers.fetchVillagers();
     fishs.fetchFish();
+    bugs.fetchBugs();
+
 
     return Scaffold(
       appBar: AppBar(

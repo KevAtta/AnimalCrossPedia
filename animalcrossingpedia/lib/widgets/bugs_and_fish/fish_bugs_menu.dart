@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'bugs.dart';
 import 'fish.dart';
 
 class FishBugsMenu extends StatelessWidget {
@@ -17,7 +18,7 @@ class FishBugsMenu extends StatelessWidget {
           title: const Text('Insetti'),
           trailing: const Icon(Icons.arrow_forward_ios_rounded),
           onTap: () {
-            print('ciao');
+            Navigator.of(context).pushNamed(Bugs.routeName);
           },
         ),
       ),
