@@ -1,21 +1,26 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class GetDataVillagers extends ChangeNotifier {
   final baseUrl = 'https://acnhapi.com/v1/villagers/';
-  final _villagerList = [];
+  var _villagerList = [];
   final _favoriteVillagers = [];
   
   Future<void> fetchVillagers() async {
+    // Crea un'istanza di FlutterSecureStorage per accedere ai dati sicuri
+    const storage = FlutterSecureStorage();
 
-    int getColorFromHex(String hexColor) {
-      hexColor = hexColor.toUpperCase().replaceAll("#", "");
-      if (hexColor.length == 6) {
-        hexColor = "FF$hexColor";
-      }
-      return int.parse(hexColor, radix: 16);
+    // Controlla se il dato è già stato salvato in locale
+    final savedData = await storage.read(key: 'villagers');
+    
+    // Se il dato è già stato salvato, esce dalla funzione senza fare nulla
+    if (savedData != null) {
+      _villagerList = jsonDecode(savedData);
+      notifyListeners();
+      return;
     }
 
     try {
@@ -37,8 +42,9 @@ class GetDataVillagers extends ChangeNotifier {
               'specie': e['species'],
               'favoriti': false,
             })).toList();
-
-    notifyListeners();
+      
+      await storage.write(key: 'villagers', value: jsonEncode(_villagerList));
+      notifyListeners();
     } catch (e) {
       // inserito l'ignore qui sotto per evitare il warning della funzione print()
       // ignore: avoid_print
@@ -65,7 +71,15 @@ class GetDataVillagers extends ChangeNotifier {
         _favoriteVillagers.add(_villagerList[indexVillagerSelected]);
       }
     }
-
     notifyListeners();
   }
+
+  
+    int getColorFromHex(String hexColor) {
+      hexColor = hexColor.toUpperCase().replaceAll("#", "");
+      if (hexColor.length == 6) {
+        hexColor = "FF$hexColor";
+      }
+      return int.parse(hexColor, radix: 16);
+    }
 }

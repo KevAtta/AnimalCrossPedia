@@ -1,8 +1,10 @@
 import 'package:animalcrossingpedia/provider/get_bugs.dart';
 import 'package:animalcrossingpedia/provider/get_fish.dart';
+import 'package:animalcrossingpedia/provider/get_music.dart';
 import 'package:animalcrossingpedia/widgets/bugs_and_fish/bugs.dart';
 import 'package:animalcrossingpedia/widgets/favorite/favorite_villager.dart';
 import 'package:animalcrossingpedia/widgets/profile_card/profile_card.dart';
+import 'package:animalcrossingpedia/widgets/songs/songs.dart';
 import 'package:flutter/material.dart';
 import 'widgets/bugs_and_fish/fish.dart';
 import 'widgets/bugs_and_fish/fish_bugs_menu.dart';
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<GetDataVillagers>(create: (_) => GetDataVillagers()),
           ChangeNotifierProvider<GetDataFish>(create: (_) => GetDataFish()),
           ChangeNotifierProvider<GetDataBugs>(create: (_) => GetDataBugs()),
+          ChangeNotifierProvider<GetDataMusic>(create: (_) => GetDataMusic()),
         ],
         child: MaterialApp(
           title: 'Animal crossing',
@@ -38,6 +41,7 @@ class MyApp extends StatelessWidget {
             Fish.routeName: (ctx) => const Fish(),
             FavoriteVillagers.routeName: (ctx) => const FavoriteVillagers(),
             Bugs.routeName: (ctx) => const Bugs(),
+            Songs.routeName: (ctx) => const Songs(),
           },
           debugShowCheckedModeBanner: false,
         ));
@@ -68,7 +72,7 @@ class AnimalCrossingPedia extends State<AnimalCrossing> {
       child: HomePage(),
     ),
     const FishBugsMenu(),
-    const Text('data'),
+    const Songs(),
     const FavoriteVillagers(),
   ];
 
@@ -77,9 +81,11 @@ class AnimalCrossingPedia extends State<AnimalCrossing> {
     final villagers = Provider.of<GetDataVillagers>(context, listen: false);
     final fishs = Provider.of<GetDataFish>(context, listen: false);
     final bugs = Provider.of<GetDataBugs>(context, listen: false);
+    final songs = Provider.of<GetDataMusic>(context, listen: false);
     villagers.fetchVillagers();
     fishs.fetchFish();
     bugs.fetchBugs();
+    songs.fetchMusic();
 
 
     return Scaffold(
