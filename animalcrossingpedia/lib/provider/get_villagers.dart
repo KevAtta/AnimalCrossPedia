@@ -8,11 +8,10 @@ class GetDataVillagers extends ChangeNotifier {
   final baseUrl = 'https://acnhapi.com/v1/villagers/';
   var _villagerList = [];
   final _favoriteVillagers = [];
+  // Crea un'istanza di FlutterSecureStorage per accedere ai dati sicuri
+  static const storage = FlutterSecureStorage();
   
   Future<void> fetchVillagers() async {
-    // Crea un'istanza di FlutterSecureStorage per accedere ai dati sicuri
-    const storage = FlutterSecureStorage();
-
     // Controlla se il dato è già stato salvato in locale
     final savedData = await storage.read(key: 'villagers');
     
@@ -56,30 +55,25 @@ class GetDataVillagers extends ChangeNotifier {
 
   List<dynamic> get favoriteVillagers => [..._favoriteVillagers]; 
 
-  void addVillagerToFavorite(int villagerId) {
-    // prendo l'indice del villager selezionato
-    var indexVillagerSelected = _villagerList.indexWhere((element) => element['id'] == villagerId);
-    
-    // se l'indice esiste, quindi è maggiore di 0
-    if(indexVillagerSelected >= 0){
-      // se il campo 'favoriti' del villager è true
-      if(_villagerList[indexVillagerSelected]['favoriti']){
-        _villagerList[indexVillagerSelected]['favoriti'] = false;
-         _favoriteVillagers.remove(_villagerList[indexVillagerSelected]);
-      }else{
-        _villagerList[indexVillagerSelected]['favoriti'] = true;
-        _favoriteVillagers.add(_villagerList[indexVillagerSelected]);
-      }
+  void addVillagerToFavorite(villager) async {
+    if(villager['favoriti']){
+      _favoriteVillagers.remove(villager);
+      villager['favoriti'] = false;
+      await storage.write(key: 'villagers', value: jsonEncode(_villagerList));
+      notifyListeners();
+    }else{
+      _favoriteVillagers.add(villager);
+      villager['favoriti'] = true;
+      await storage.write(key: 'villagers', value: jsonEncode(_villagerList));
+      notifyListeners();
     }
-    notifyListeners();
   }
-
   
-    int getColorFromHex(String hexColor) {
-      hexColor = hexColor.toUpperCase().replaceAll("#", "");
-      if (hexColor.length == 6) {
-        hexColor = "FF$hexColor";
-      }
-      return int.parse(hexColor, radix: 16);
+  int getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF$hexColor";
     }
+    return int.parse(hexColor, radix: 16);
+  }
 }

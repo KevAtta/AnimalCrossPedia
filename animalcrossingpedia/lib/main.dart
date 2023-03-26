@@ -77,16 +77,20 @@ class AnimalCrossingPedia extends State<AnimalCrossing> {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     final villagers = Provider.of<GetDataVillagers>(context, listen: false);
+    villagers.fetchVillagers();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final fishs = Provider.of<GetDataFish>(context, listen: false);
     final bugs = Provider.of<GetDataBugs>(context, listen: false);
     final songs = Provider.of<GetDataMusic>(context, listen: false);
-    villagers.fetchVillagers();
     fishs.fetchFish();
     bugs.fetchBugs();
     songs.fetchMusic();
-
 
     return Scaffold(
       appBar: AppBar(

@@ -93,7 +93,7 @@ class FavoriteVillagers extends StatelessWidget {
                       : const Icon(Icons.star_border),
                   color: Colors.amber,
                   onPressed: () => {
-                    villagerFav.addVillagerToFavorite(villager[index]['id'])
+                    villagerFav.addVillagerToFavorite(villager[index])
                   },
                 ),
               ),

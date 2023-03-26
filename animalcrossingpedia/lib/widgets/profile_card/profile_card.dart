@@ -233,7 +233,7 @@ class ProfileCardState extends State<ProfileCard> {
                 IconButton(
                 icon: villager['favoriti'] ? const Icon(Icons.star) : const Icon(Icons.star_border), 
                 color: Colors.amber,
-                onPressed: () => { villagerFav.addVillagerToFavorite(villager['id']) },
+                onPressed: () => { villagerFav.addVillagerToFavorite(villager) },
               ),
             ),
           ),
