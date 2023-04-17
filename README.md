@@ -33,7 +33,7 @@ HomePage
 ---
 Dettagli abitatante
 
-<img src="animalcrossingpedia/assets/villager_opened.PNG" width="200" alt="villager details"></img>
+<img src="animalcrossingpedia/assets/villlager_opened.PNG" width="200" alt="villager details"></img>
 ---
 Sezione dedicata agli animali (pesci e insetti)
 
@@ -55,7 +55,7 @@ Sezione favoriti
 
 <img src="animalcrossingpedia/assets/favourite_screen.PNG" width="200" alt="favourite section"></img>
 
-# Techs
+# Tecnologie usate
 Le tecnologie utilizzate: 
 - Le APIs sono state trovate tramite questa [repo](https://github.com/public-apis/public-apis#index) e, come detta all'inizio, si sono sfruttate queste [api](http://acnhapi.com/doc) le quali sono accessibili gratuitamente e senza fare richiesta di un api_key o bearer token;
 - La struttura interna dell'app nella folder lib è stata costruita sulla base di quello che di norma faccio utilizzando React, usandolo abitualmente per lavoro quindi inserendo varie folder contenente i componenti grafici ma anche una folder 'utils' contenente tutte le costanti usate nell'applicazione rendendo così il codice più leggibile e manutenibile in quanto in futuro basterà mettere mano ad una di queste costanti per andare a modificare il comportamento dell'applicazione stessa;
