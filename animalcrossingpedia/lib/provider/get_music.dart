@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
+import '../utils/costants.dart' as constants;
 
 class GetDataMusic extends ChangeNotifier {
-  final baseUrl = 'https://acnhapi.com/v1/songs/';
   var _musicList = [];
   AudioPlayer player = AudioPlayer();
 
@@ -25,7 +25,7 @@ class GetDataMusic extends ChangeNotifier {
     }
     
     try{
-      final response = await http.get(Uri.parse(baseUrl));
+      final response = await http.get(Uri.parse(constants.musicApiQuery));
       final data = jsonDecode(response.body);
       final music = data.values.toList();
 

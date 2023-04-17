@@ -4,7 +4,8 @@ class HomePageContent extends StatefulWidget {
   final List<dynamic> villagersList;
   final int index;
 
-  const HomePageContent({super.key, required this.villagersList, required this.index});
+  const HomePageContent(
+      {super.key, required this.villagersList, required this.index});
 
   @override
   State<HomePageContent> createState() => HomePageContentState();
@@ -12,6 +13,8 @@ class HomePageContent extends StatefulWidget {
 
 class HomePageContentState extends State<HomePageContent> {
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -21,11 +24,16 @@ class HomePageContentState extends State<HomePageContent> {
             children: [
               Text(
                 '#${widget.villagersList[widget.index]['id']}',
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: width < 360
+                        ? 13
+                        : width < 420
+                            ? 17
+                            : 20),
               ),
               CircleAvatar(
-                radius: 50,
+                radius: width < 420 ? 30 : 50,
                 backgroundColor: widget.villagersList[widget.index]
                             ['colore_carta'] ==
                         0xFFFFFFFF
@@ -33,8 +41,16 @@ class HomePageContentState extends State<HomePageContent> {
                     : Colors.white,
                 child: Image.network(
                   widget.villagersList[widget.index]['img_icona'],
-                  width: 40,
-                  height: 40,
+                  width: width < 360
+                      ? 30
+                      : width < 420
+                          ? 35
+                          : 40,
+                  height: width < 360
+                      ? 30
+                      : width < 420
+                          ? 35
+                          : 40,
                 ),
               ),
             ],
@@ -50,20 +66,32 @@ class HomePageContentState extends State<HomePageContent> {
               children: [
                 Text(
                   widget.villagersList[widget.index]['nome'],
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 20),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: width < 360
+                          ? 13
+                          : width < 420
+                              ? 17
+                              : 20),
                 ),
                 const SizedBox(width: 15),
                 Text(
                   widget.villagersList[widget.index]['birthday-string'],
-                  style: const TextStyle(fontSize: 20),
+                  style: TextStyle(
+                      fontSize: width < 360
+                          ? 13
+                          : width < 420
+                              ? 17
+                              : 20),
                 ),
               ],
             ),
           ],
         ),
         // infine un icona per indicare che l'oggetto è cliccabile
-        const Icon(Icons.arrow_forward_ios_rounded)
+        width < 420
+            ? const Text("")
+            : const Icon(Icons.arrow_forward_ios_rounded)
       ],
     );
   }

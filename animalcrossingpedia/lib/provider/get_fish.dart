@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import '../utils/costants.dart' as constants;
 
 class GetDataFish extends ChangeNotifier {
-  final baseUrl = 'https://acnhapi.com/v1/fish';
   var _fishList = [];
 
   Future<void> fetchFish() async {
@@ -23,7 +23,7 @@ class GetDataFish extends ChangeNotifier {
     }
 
     try{
-      final response = await http.get(Uri.parse(baseUrl));
+      final response = await http.get(Uri.parse(constants.fishApiQuery));
       final data = jsonDecode(response.body);
       final fishes = data.values.toList();
 

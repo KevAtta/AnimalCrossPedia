@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import '../utils/costants.dart' as constants;
 
 class GetDataVillagers extends ChangeNotifier {
-  final baseUrl = 'https://acnhapi.com/v1/villagers/';
   var _villagerList = [];
   final _favoriteVillagers = [];
   // Crea un'istanza di FlutterSecureStorage per accedere ai dati sicuri
@@ -23,7 +23,7 @@ class GetDataVillagers extends ChangeNotifier {
     }
 
     try {
-      final response = await http.get(Uri.parse(baseUrl));
+      final response = await http.get(Uri.parse(constants.villagerApiQuery));
       final data = jsonDecode(response.body);
       final villagers = data.values.toList();
 
