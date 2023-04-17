@@ -29,31 +29,31 @@ Tutti i seguenti screenshot sono stati effettuati in modalità debug:
 
 HomePage
 
-<img src="animalcrossingpedia/assets/home_page" width="200" alt="HomePage"></img>
+<img src="animalcrossingpedia/assets/home_page.PNG" width="200" alt="HomePage"></img>
 ---
 Dettagli abitatante
 
-<img src="animalcrossingpedia/assets/villager_opened" width="200" alt="villager details"></img>
+<img src="animalcrossingpedia/assets/villager_opened.PNG" width="200" alt="villager details"></img>
 ---
 Sezione dedicata agli animali (pesci e insetti)
 
-<img src="animalcrossingpedia/assets/animal_section" width="200" alt="animal section"></img>
+<img src="animalcrossingpedia/assets/animal_section.PNG" width="200" alt="animal section"></img>
 ---
 Sezione dedicata ai pesci
 
-<img src="animalcrossingpedia/assets/fish_screen" width="200" alt="fish section"></img>
+<img src="animalcrossingpedia/assets/fish_screen.PNG" width="200" alt="fish section"></img>
 ---
 Sezione dedicata agli insetti
 
-<img src="animalcrossingpedia/assets/bugs_screen" width="200" alt="bugs section"></img>
+<img src="animalcrossingpedia/assets/bugs_screen.PNG" width="200" alt="bugs section"></img>
 ---
 Sezione dedicata alle musiche del gioco
 
-<img src="animalcrossingpedia/assets/music_screen" width="200" alt="song section"></img>
+<img src="animalcrossingpedia/assets/music_screen.PNG" width="200" alt="song section"></img>
 ---
 Sezione favoriti
 
-<img src="animalcrossingpedia/assets/favourite_screen" width="200" alt="favourite section"></img>
+<img src="animalcrossingpedia/assets/favourite_screen.PNG" width="200" alt="favourite section"></img>
 
 # Techs
 Le tecnologie utilizzate: 
@@ -68,7 +68,7 @@ Come è possibile visionare nel file pubspec.yml il restanti pacchetto esterno u
 ## Tests
 Tutti i test sono stati effettuati su un Samsung S10s con Android 12 e su browser, principalmente Chrome.
 
-## Unintentional behaviour
+## Comportamento non intenzionali
 Riguardo la funzionalità dei preferiti, questa purtroppo induce un comportamento non corretto da parte dell'app. Questo problema si verifica quando si inseriscono dei villager tra i preferiti, si chiude e si riapre l'applicazione. L'applicazione a questo punto non terrà traccia dei preferiti inseriti precedentemente, questo non tanto per un bug ma per la mancanza di una funzione che vada a salvare i preferiti e che gli ricarichi al nuovo avvio dell'app. 
 
 Ponendosi in un caso reale probabilmene questo aspetto dovrebbe avere la massima priorità in quanto va a minare la user experience.
