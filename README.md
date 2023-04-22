@@ -1,5 +1,3 @@
-# Relazione
-
 ## Info progetto
 Nome: **Kevin Attarantato**,  
 Matricola: **324564**,  
