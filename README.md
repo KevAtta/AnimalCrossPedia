@@ -22,6 +22,13 @@ Se l'utente, dalla schermata principale, cliccherà la seconda sezione dedicati 
 
 L'utente potrà muoversi anche nella terza sezione dedicata alle musiche del gioco dove potrà avviarle ed ascolterle come musica di background durante la navigazione nell'applicazione. Infine l'ultima sezione sarà inzialmente vuota e andrà man mano a contenere eventuali abitanti inseriti tra i preferiti, cliccando l'apposita icona in alto a destra.
 
+## Installazione mobile
+L'applicazione per come è sulla repo non ha la possibilità di essere installata su mobile, questo a causa di un errore che insorge, nel caso si provasse, dovuto alla versione. Se si volesse installare l'applicazione anche in mobile si seguano i prossimi passi:
+- Andare nella cartella android;
+- Poi nella cartella App;
+- Da qui nella cartella src e poi nel file build.gradle;
+- All'interno di questo file alla voce defaultConfig cambiare il campo minSdkVersion da quello già presente in '19' o comunque un valore maggiore di 18.
+
 ## Esperienza utente
 La UI è stata pensata per essere il più possibile 'minimal' e di facile utilizzo, sopratutto per i più piccoli, nei devide mobile usando per lo più liste orizzontali, in particolare si è pensato di inserire anche una barra di navigazione in basso in modo tale da facilitare l'accesso ad ogni sezione in modo semplice e anche tenendo il dispositivo mobile con una sola mano, questa barra permetterà di raggiungere tutte le sezioni dell'applicazione: Home, animali, musiche, abitanti preferiti.
 
